@@ -254,7 +254,8 @@ class Helper
             'fluent_forms_add_ons',
             'fluent_forms_docs',
             'fluent_forms_payment_entries',
-            'fluent_forms_smtp'
+            'fluent_forms_smtp',
+            'fluent_forms_categories'
         ];
 
         $status = true;
@@ -301,7 +302,7 @@ class Helper
 
                 if (!empty($result[$selector])) {
 
-                    if($tag == 'fluentform' && !empty($result['type']) && $result['type'] == 'conversational') {
+                    if ($tag == 'fluentform' && !empty($result['type']) && $result['type'] == 'conversational') {
                         continue;
                     }
 
@@ -350,7 +351,7 @@ class Helper
             $hasBlock = strpos($block['blockName'], 'fluentfom/guten-block') === 0;
             if ($hasBlock) {
                 $formId = (int) $block['attrs']['formId'];
-                
+
                 $ids[] = $formId;
 
                 $theme = ArrayHelper::get($block, 'attrs.themeStyle');
@@ -416,7 +417,7 @@ class Helper
                 if (!$exist && $form->has_payment) {
                     $allSubmission = Submission::where('form_id', $form->id)->get()->toArray();
 
-                    foreach($allSubmission as $submission) {
+                    foreach ($allSubmission as $submission) {
                         $response = json_decode(ArrayHelper::get($submission, 'response'), true);
                         $exist = $inputValue == ArrayHelper::get($response, $fieldName);
                     }
@@ -425,7 +426,7 @@ class Helper
                 if ($exist) {
                     $typeName = ArrayHelper::get($field, 'element', 'input_text');
                     return [
-                        'unique' => apply_filters('fluentform/validation_message_unique_'. $typeName, ArrayHelper::get($field, 'raw.settings.unique_validation_message'), $field),
+                        'unique' => apply_filters('fluentform/validation_message_unique_' . $typeName, ArrayHelper::get($field, 'raw.settings.unique_validation_message'), $field),
                     ];
                 }
             }
@@ -433,9 +434,9 @@ class Helper
 
         return $validation;
     }
-    
 
-    
+
+
     public static function hasPartialEntries($formId)
     {
         static $cache = [];
@@ -844,12 +845,12 @@ class Helper
 
         return $title;
     }
-    
+
     public static function getIpinfo()
     {
         return ArrayHelper::get(get_option('_fluentform_global_form_settings'), 'misc.geo_provider_token');
     }
-    
+
     public static function isAutoloadCaptchaEnabled()
     {
         return ArrayHelper::get(get_option('_fluentform_global_form_settings'), 'misc.autoload_captcha');
@@ -865,7 +866,7 @@ class Helper
         }
         return $url;
     }
-    
+
     public static function arrayFilterRecursive($arrayItems)
     {
         foreach ($arrayItems as $key => $item) {
@@ -876,10 +877,10 @@ class Helper
         }
         return $arrayItems;
     }
-    
+
     public static function isBlockEditor()
     {
-       return defined( 'REST_REQUEST' ) && REST_REQUEST && ! empty( $_REQUEST['context'] ) && $_REQUEST['context'] === 'edit';
+        return defined('REST_REQUEST') && REST_REQUEST && !empty($_REQUEST['context']) && $_REQUEST['context'] === 'edit';
     }
     public static function resolveValidationRulesGlobalOption(&$field)
     {
@@ -890,7 +891,7 @@ class Helper
         } else {
             if (ArrayHelper::get($field, 'settings.validation_rules')) {
                 foreach ($field['settings']['validation_rules'] as $key => &$rule) {
-                    if(!isset($rule['global'])) {
+                    if (!isset($rule['global'])) {
                         $rule['global'] = false;
                     }
                     $rule['global_message'] = static::getGlobalDefaultMessage($key);
