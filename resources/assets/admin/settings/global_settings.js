@@ -11,7 +11,7 @@ import GeneralIntegrationSettings from './GeneralIntegrationSettings.vue';
 import DoubleOptinSettings from './DoubleOptinSettings.vue';
 import ManagersSettings from './ManagersSettings.vue';
 import InventoryManager from './InventoryManager.vue';
-
+import Categories from './Categories.vue';
 
 import License from './License.vue';
 import globalSearch from '../global_search'
@@ -110,6 +110,7 @@ new Vue({
         'general-integration-settings': GeneralIntegrationSettings,
         'double_optin_settings': DoubleOptinSettings,
         managers: ManagersSettings,
+        categories: Categories,
         inventory_manager: InventoryManager,
         license: License
 

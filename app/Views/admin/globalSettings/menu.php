@@ -170,6 +170,16 @@ use FluentForm\Framework\Helpers\ArrayHelper;
                                 <?php echo __('Managers'); ?>
                             </a>
                         </li>
+                        <li class="<?php echo esc_attr(Helper::getHtmlElementClass('categories', $currentComponent)); ?> ff_list_button_item">
+                            <a
+                                class="ff_list_button_link"
+                                data-hash="categories"
+                                href="<?php echo esc_url(Helper::makeMenuUrl('fluent_forms_settings', [
+                                    'hash' => 'categories'
+                                ])); ?>">
+                                <?php echo __('Categories'); ?>
+                            </a>
+                        </li>
                         <?php if ( ArrayHelper::get($components, 'admin_approval')) :?>
 
                             <li class="<?php echo esc_attr(Helper::getHtmlElementClass('admin_approval', $currentComponent)); ?> ff_list_button_item">
